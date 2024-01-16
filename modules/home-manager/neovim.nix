@@ -7,10 +7,17 @@
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    extraConfig = builtins.readFile ../../dotfiles/vimrc;
+    extraPackages = with pkgs; [ rust-analyzer ];
     plugins = with pkgs.vimPlugins; [
       auto-pairs
       csv-vim
+      cmp-nvim-lsp
+      cmp-nvim-lua
+      cmp-vsnip
+      nvim-cmp
+      nvim-lspconfig
+      rustaceanvim
+      vim-vsnip
       vim-abolish
       vim-colors-solarized
       vim-elixir
@@ -30,5 +37,14 @@
       vim-yaml
       vimtex
     ];
+  };
+
+  xdg.configFile = {
+    "nvim/init.lua".text = ''
+      vim.cmd [[source ${../../dotfiles/vimrc}]]
+      require 'completion'
+    '';
+
+    "nvim/lua/completion.lua".source = ../../nvim/completion.lua;
   };
 }
