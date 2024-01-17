@@ -7,7 +7,7 @@
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    extraPackages = with pkgs; [ rust-analyzer ];
+    extraPackages = with pkgs; [ cargo rust-analyzer ];
     plugins = with pkgs.vimPlugins; [
       auto-pairs
       csv-vim
