@@ -24,6 +24,8 @@ let
     vim-yaml
     vimtex
   ];
+
+  toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
 in
   {
     # Keep vim lighter than neovim
@@ -37,8 +39,39 @@ in
     programs.neovim = {
       enable = true;
       extraConfig = vimrcSrc;
+
+      extraPackages = with pkgs; [
+        cargo
+        rust-analyzer
+      ];
+
+      extraLuaConfig = ''
+        --[[
+          When in normal mode, the key sequence space-e-x will open netrw
+        ]]--
+        vim.g.mapleader = " "
+        -- "n" for normal mode
+        -- the vim command :Ex (or :Explore) opens netrw
+        vim.keymap.set("n", "<leader>ex", vim.cmd.Ex)
+      '';
+
       plugins = with pkgs.vimPlugins; [
         markdown-preview-nvim
+        {
+          plugin = (nvim-treesitter.withPlugins (p: [
+            p.rust
+          ]));
+          config = toLuaFile ../../dotfiles/nvim/plugins/treesitter.lua;
+        }
+        {
+          plugin = nvim-lspconfig;
+          config = toLuaFile ../../dotfiles/nvim/plugins/lspconfig.lua;
+        }
+        nvim-cmp
+        cmp-nvim-lsp
+        cmp_luasnip
+        luasnip
+        friendly-snippets
       ] ++ vimPlugins;
     };
   }
