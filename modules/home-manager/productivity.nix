@@ -5,6 +5,7 @@
     keepassxc
     libreoffice-qt
     logseq
+    thunderbird
   ];
 }
 
