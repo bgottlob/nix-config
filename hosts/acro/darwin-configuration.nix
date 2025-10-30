@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  services.nix-daemon.enable = true;
+  ids.gids.nixbld = 101;
 
   nix = {
     package = pkgs.nix;
