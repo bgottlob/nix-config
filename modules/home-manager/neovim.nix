@@ -110,6 +110,14 @@ in
           config = toLuaFile ../../dotfiles/nvim/plugins/telescope.lua;
         }
 
+        # File tree
+        neo-tree-nvim
+        # neo-tree dependencies
+        nui-nvim
+        # neo-tree optional dependencies
+        nvim-web-devicons
+        image-nvim
+
         # Other
         markdown-preview-nvim
       ] ++ vimPlugins;
