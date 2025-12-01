@@ -75,6 +75,7 @@ in
             p.lua
             p.markdown
             p.nix
+            p.r
             p.ruby
             p.rust
             p.terraform
