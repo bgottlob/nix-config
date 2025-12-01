@@ -71,6 +71,7 @@ in
             p.heex
             p.javascript
             p.json
+            p.just
             p.latex
             p.lua
             p.markdown
