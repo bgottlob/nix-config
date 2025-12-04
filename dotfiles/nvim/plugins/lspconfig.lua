@@ -1,13 +1,11 @@
-local lspconfig = require('lspconfig')
-
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Set up each language server and pass its completion candidates to nvim-cmp
 local servers = { 'rust_analyzer' }
 for _, server in ipairs(servers) do
-  lspconfig[server].setup {
+  vim.lsp.config(server, {
     capabilities = capabilities
-  }
+  })
 end
 
 local luasnip = require('luasnip')

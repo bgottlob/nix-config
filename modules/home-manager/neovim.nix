@@ -92,9 +92,9 @@ in
           config = (
             (toLuaFile ../../dotfiles/nvim/plugins/lspconfig.lua) + (
               toLuaStr ''
-                require'lspconfig'.elixirls.setup{
-                  cmd = { "${pkgs.elixir-ls}/bin/elixir-ls" };
-                }
+              vim.lsp.config('elixirls', {
+                cmd = { "${pkgs.elixir-ls}/bin/elixir-ls" };
+              })
               ''
             )
           );
