@@ -18,6 +18,7 @@
   };
 
   imports = [
+    ./gameboy.nix
     ./k8s.nix
     ./kitty.nix
     ./neovim.nix
