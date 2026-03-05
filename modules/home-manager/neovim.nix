@@ -95,6 +95,7 @@ in
               vim.lsp.config('elixirls', {
                 cmd = { "${pkgs.elixir-ls}/bin/elixir-ls" };
               })
+              vim.lsp.enable('elixirls')
               ''
             )
           );

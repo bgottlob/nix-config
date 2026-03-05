@@ -7,6 +7,7 @@ for _, server in ipairs(servers) do
     capabilities = capabilities
   })
 end
+vim.lsp.enable(servers)
 
 local luasnip = require('luasnip')
 require('luasnip.loaders.from_vscode').lazy_load() -- friendlysnip snippets
