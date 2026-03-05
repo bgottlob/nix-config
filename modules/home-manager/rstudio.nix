@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 with pkgs;
 let
@@ -12,6 +12,5 @@ let
   };
 in
 {
-  home.packages = [ rstudioWithPkgs ];
+  home.packages = lib.optionals (!stdenv.isDarwin) [ rstudioWithPkgs ];
 }
-
