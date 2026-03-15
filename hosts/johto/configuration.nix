@@ -15,6 +15,7 @@
       ../../modules/printing.nix
       ../../modules/sound.nix
       ../../modules/tailscale.nix
+      ../../modules/virtualization.nix
     ];
 
   boot = {
@@ -50,12 +51,15 @@
       ../../modules/home.nix
       ../../modules/home-manager/workstation.nix
       ../../modules/home-manager/productivity.nix
+      ../../modules/home-manager/virtualization.nix
     ];
   };
 
   services.pcscd.enable = true;
 
-  virtualisation.docker.enable = true;
+  environment.systemPackages = [
+    pkgs.compose2nix
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -14,6 +14,7 @@
       ../../modules/printing.nix
       ../../modules/sound.nix
       ../../modules/tailscale.nix
+      ../../modules/virtualization.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -38,12 +39,11 @@
       ../../modules/home.nix
       ../../modules/home-manager/workstation.nix
       ../../modules/home-manager/productivity.nix
+      ../../modules/home-manager/virtualization.nix
     ];
   };
 
   services.pcscd.enable = true;
-
-  virtualisation.docker.enable = true;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
