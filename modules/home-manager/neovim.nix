@@ -63,8 +63,7 @@ in
       plugins = with pkgs.vimPlugins; [
         nvim-solarized-lua
         # Treesitter and syntax highlighting
-        {
-          plugin = (nvim-treesitter.withPlugins (p: [
+          (nvim-treesitter.withPlugins (p: [
             p.csv
             p.elixir
             p.erlang
@@ -82,9 +81,7 @@ in
             p.terraform
             p.toml
             p.yaml
-          ]));
-          config = toLuaFile ../../dotfiles/nvim/plugins/treesitter.lua;
-        }
+          ]))
 
         # LSP, snippet, and autocompletion plugins
         {
