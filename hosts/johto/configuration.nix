@@ -80,9 +80,9 @@
   # For scanner
   nixpkgs.config.allowUnfree = true;
 
-  # Electron 27 is needed to build logseq until this issue is fixed:
+  # Electron is needed to build logseq until this issue is fixed:
   # https://github.com/NixOS/nixpkgs/issues/341683
   nixpkgs.config.permittedInsecurePackages = [
-    "electron-27.3.11"
+    "electron-38.8.4"
   ];
 }

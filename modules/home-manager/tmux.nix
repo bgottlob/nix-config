@@ -11,5 +11,8 @@
     extraConfig = ''
       set -s escape-time 0
     '';
+    plugins = with pkgs.tmuxPlugins; [
+      vim-tmux-navigator
+    ];
   };
 }

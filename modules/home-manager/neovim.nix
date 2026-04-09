@@ -50,6 +50,9 @@ in
       enable = true;
       extraConfig = nvimrcSrc;
 
+      withPython3 = false;
+      withRuby = false;
+
       extraPackages = with pkgs; [
         # Rust
         cargo

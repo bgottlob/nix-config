@@ -69,9 +69,9 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.05"; # Did you read the comment?
 
-  # Electron 27 is needed to build logseq until this issue is fixed:
+  # Electron is needed to build logseq until this issue is fixed:
   # https://github.com/NixOS/nixpkgs/issues/341683
   nixpkgs.config.permittedInsecurePackages = [
-    "electron-27.3.11"
+    "electron-38.8.4"
   ];
 }
