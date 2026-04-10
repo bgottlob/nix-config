@@ -1,9 +1,14 @@
 " Use unix line endings
 set ff=unix
 
-" Set syntax higlighting to use solarized dark theme
+" Set syntax highlighting based on colormode state file (~/.local/state/colormode)
 syntax enable
-set background=dark
+let s:colormode_file = expand('~/.local/state/colormode')
+if filereadable(s:colormode_file) && trim(readfile(s:colormode_file)[0]) ==# 'light'
+  set background=light
+else
+  set background=dark
+endif
 colorscheme solarized
 
 " Enable autoindentation

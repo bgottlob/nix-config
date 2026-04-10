@@ -11,6 +11,20 @@
     initContent = ''
       [[ ! -f ${../../dotfiles/p10k.zsh} ]] || source ${../../dotfiles/p10k.zsh}
       [[ ! -f "$HOME/.zshrc.system" ]] || source "$HOME/.zshrc.system"
+
+      light-mode() {
+        mkdir -p "$HOME/.local/state"
+        echo light > "$HOME/.local/state/colormode"
+        cp "$HOME/.config/kitty/solarized-light.conf" "$HOME/.config/kitty/colormode.conf"
+        kitty @ set-colors --all --configured "$HOME/.config/kitty/solarized-light.conf"
+      }
+
+      dark-mode() {
+        mkdir -p "$HOME/.local/state"
+        echo dark > "$HOME/.local/state/colormode"
+        cp "$HOME/.config/kitty/solarized-dark.conf" "$HOME/.config/kitty/colormode.conf"
+        kitty @ set-colors --all --configured "$HOME/.config/kitty/solarized-dark.conf"
+      }
     '';
     plugins = with pkgs; [
       {
