@@ -21,6 +21,7 @@
     ./k8s.nix
     ./kitty.nix
     ./neovim.nix
+    ./opencode.nix
     ./rstudio.nix
     ./tmux.nix
     ./zsh.nix
