@@ -32,8 +32,8 @@ let
     vimtex
   ];
 
-  toLuaStr = str: "lua << EOF\n${str}\nEOF\n";
-  toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
+  toLuaStr = str: str;
+  toLuaFile = file: builtins.readFile file;
 in
   {
     # Keep vim lighter than neovim
@@ -89,6 +89,7 @@ in
         # LSP, snippet, and autocompletion plugins
         {
           plugin = nvim-lspconfig;
+          type = "lua";
           config = (
             (toLuaFile ../../dotfiles/nvim/plugins/lspconfig.lua) + (
               toLuaStr ''
@@ -110,6 +111,7 @@ in
         plenary-nvim # Dependency of telescope
         {
           plugin = telescope-nvim;
+          type = "lua";
           config = toLuaFile ../../dotfiles/nvim/plugins/telescope.lua;
         }
 
