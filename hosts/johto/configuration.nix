@@ -83,6 +83,6 @@
   # Electron is needed to build logseq until this issue is fixed:
   # https://github.com/NixOS/nixpkgs/issues/341683
   nixpkgs.config.permittedInsecurePackages = [
-    "electron-38.8.4"
+    "electron-39.8.10"
   ];
 }
