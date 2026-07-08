@@ -26,9 +26,7 @@ let
     vim-javascript
     vim-json
     vim-nix
-    vim-ruby
     vim-terraform
-    vim-yaml
     vimtex
   ];
 
