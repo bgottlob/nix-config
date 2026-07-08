@@ -56,6 +56,8 @@ in
       extraPackages = with pkgs; [
         # Rust
         cargo
+        clippy
+        graphviz
         rust-analyzer
         rustc
 
@@ -125,6 +127,13 @@ in
 
         # Other
         markdown-preview-nvim
+
+        # Rust
+        {
+          plugin = rustaceanvim;
+          type = "lua";
+          config = toLuaFile ../../dotfiles/nvim/plugins/rustaceanvim.lua;
+        }
       ] ++ vimPlugins;
     };
   }
