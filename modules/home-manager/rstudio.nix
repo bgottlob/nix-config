@@ -12,5 +12,5 @@ let
   };
 in
 {
-  home.packages = lib.optionals (!stdenv.isDarwin) [ rstudioWithPkgs ];
+  home.packages = lib.optionals (!stdenv.hostPlatform.isDarwin) [ rstudioWithPkgs ];
 }
