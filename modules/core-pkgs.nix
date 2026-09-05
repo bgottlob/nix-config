@@ -13,4 +13,8 @@
     vim
     wget
   ];
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.hack
+  ];
 }
