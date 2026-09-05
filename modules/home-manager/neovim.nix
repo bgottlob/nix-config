@@ -1,14 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  vimrcSrc = (builtins.readFile ../../dotfiles/vimrc) + ''
-    highlight Normal ctermbg=none
-  '';
-
-  nvimrcSrc = (builtins.readFile ../../dotfiles/vimrc) + ''
-    highlight Normal ctermbg=none guibg=none
-  '';
-
   vimPlugins = with pkgs.vimPlugins; [
     auto-pairs
     vim-abolish
@@ -20,33 +12,16 @@ let
     vim-unimpaired
   ];
 
-  vimSyntaxPlugins = with pkgs.vimPlugins; [
-    csv-vim
-    vim-elixir
-    vim-javascript
-    vim-json
-    vim-nix
-    vim-terraform
-    vimtex
-  ];
-
   toLuaStr = str: str;
   toLuaFile = file: builtins.readFile file;
 in
   {
-    # Keep vim lighter than neovim
-    programs.vim = {
-      enable = true;
-      defaultEditor = true;
-      extraConfig = vimrcSrc;
-      plugins = vimPlugins ++ vimSyntaxPlugins ++ [
-        pkgs.vimPlugins.vim-colors-solarized
-      ];
-    };
-
     programs.neovim = {
       enable = true;
-      extraConfig = nvimrcSrc;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      initLua = toLuaFile ../../dotfiles/nvim/init.lua;
 
       withPython3 = false;
       withRuby = false;
@@ -60,13 +35,15 @@ in
         rustc
 
         # Elixir
+        beamPackages.elixir
         elixir-ls
       ];
 
       plugins = with pkgs.vimPlugins; [
         nvim-solarized-lua
         # Treesitter and syntax highlighting
-          (nvim-treesitter.withPlugins (p: [
+        {
+          plugin = (nvim-treesitter.withPlugins (p: [
             p.csv
             p.elixir
             p.erlang
@@ -84,7 +61,10 @@ in
             p.terraform
             p.toml
             p.yaml
-          ]))
+          ]));
+          type = "lua";
+          config = toLuaFile ../../dotfiles/nvim/plugins/treesitter.lua;
+        }
 
         # LSP, snippet, and autocompletion plugins
         {
@@ -97,6 +77,28 @@ in
                 cmd = { "${pkgs.elixir-ls}/bin/elixir-ls" };
               })
               vim.lsp.enable('elixirls')
+
+              -- Format Elixir/Heex buffers with mix format (via elixir-ls) on save
+              vim.api.nvim_create_autocmd('LspAttach', {
+                callback = function(args)
+                  local bufnr = args.buf
+                  if vim.bo[bufnr].filetype ~= 'elixir' and vim.bo[bufnr].filetype ~= 'heex' then
+                    return
+                  end
+
+                  local client = vim.lsp.get_client_by_id(args.data.client_id)
+                  if not client or not client:supports_method('textDocument/formatting') then
+                    return
+                  end
+
+                  vim.api.nvim_create_autocmd('BufWritePre', {
+                    buffer = bufnr,
+                    callback = function()
+                      vim.lsp.buf.format({ bufnr = bufnr, id = client.id })
+                    end,
+                  })
+                end,
+              })
               ''
             )
           );
