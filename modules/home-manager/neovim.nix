@@ -118,7 +118,11 @@ in
         }
 
         # File tree
-        neo-tree-nvim
+        {
+          plugin = neo-tree-nvim;
+          type = "lua";
+          config = toLuaFile ../../dotfiles/nvim/plugins/neo-tree.lua;
+        }
         # neo-tree dependencies
         nui-nvim
         # neo-tree optional dependencies
