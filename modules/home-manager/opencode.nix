@@ -3,7 +3,7 @@
 {
   programs.opencode = {
     enable = true;
-    tui.theme = "system";
+    cli.theme = "system";
     settings = {
       autoupdate = false;
     };
