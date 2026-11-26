@@ -1,14 +1,3 @@
--- Skip auto-pairs in snacks buffers (pickers, inputs, terminals). auto-pairs
--- wraps the buffer's <CR> mapping on BufEnter by reading its rhs, and snacks
--- maps <CR> to a Lua callback, which has no rhs (E716: Key not present in
--- Dictionary: "rhs"). Marking the buffer as loaded makes auto-pairs skip it.
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "snacks_*",
-  callback = function(args)
-    vim.b[args.buf].autopairs_loaded = 1
-  end,
-})
-
 -- snacks.input and snacks.picker setup recommended by
 -- https://github.com/nickjvandyke/opencode.nvim
 require("snacks").setup({

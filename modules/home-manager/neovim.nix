@@ -2,7 +2,6 @@
 
 let
   vimPlugins = with pkgs.vimPlugins; [
-    auto-pairs
     vim-abolish
     vim-sleuth
     vim-slime
@@ -123,6 +122,12 @@ in
         friendly-snippets
         luasnip
         nvim-cmp
+        # After nvim-cmp so its config can hook into cmp's setup
+        {
+          plugin = nvim-autopairs;
+          type = "lua";
+          config = toLuaFile ../../dotfiles/nvim/plugins/nvim-autopairs.lua;
+        }
 
         # Fuzzy finder
         plenary-nvim # Dependency of telescope
@@ -143,6 +148,18 @@ in
         # neo-tree optional dependencies
         nvim-web-devicons
         image-nvim
+
+        # Git
+        {
+          plugin = gitsigns-nvim;
+          type = "lua";
+          config = toLuaFile ../../dotfiles/nvim/plugins/gitsigns.lua;
+        }
+        {
+          plugin = diffview-nvim;
+          type = "lua";
+          config = toLuaFile ../../dotfiles/nvim/plugins/diffview.lua;
+        }
 
         # AI agents
         {
