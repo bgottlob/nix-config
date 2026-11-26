@@ -12,6 +12,21 @@ let
     vim-unimpaired
   ];
 
+  # nixpkgs ships the latest release (v1.x), which only supports OpenCode v1.
+  # main supports OpenCode v2.
+  # TODO: Switch back to stable pkgs.vimPlugins.opencode-nvim once a release
+  # supporting OpenCode v2 (2.x) lands in nixpkgs.
+  opencode-nvim = pkgs.vimUtils.buildVimPlugin {
+    pname = "opencode.nvim";
+    version = "0-unstable-2026-10-30";
+    src = pkgs.fetchFromGitHub {
+      owner = "nickjvandyke";
+      repo = "opencode.nvim";
+      rev = "4851ae503585dc5142ad66a98e8952a74e1f7b3a";
+      hash = "sha256-Qhn8hGQ/S6SCV0GxsrS8nAPSq0ndwMNaEYhOw0Mv/Pc=";
+    };
+  };
+
   toLuaStr = str: str;
   toLuaFile = file: builtins.readFile file;
 in
@@ -128,6 +143,18 @@ in
         # neo-tree optional dependencies
         nvim-web-devicons
         image-nvim
+
+        # AI agents
+        {
+          plugin = snacks-nvim;
+          type = "lua";
+          config = toLuaFile ../../dotfiles/nvim/plugins/snacks.lua;
+        }
+        {
+          plugin = opencode-nvim;
+          type = "lua";
+          config = toLuaFile ../../dotfiles/nvim/plugins/opencode.lua;
+        }
 
         # Other
         markdown-preview-nvim
